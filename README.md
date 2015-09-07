@@ -1,6 +1,6 @@
 # Vista Platform API Client (Java)
 
-Maven usage:
+Add the library using Maven:
 ```xml
           <dependency>
             <groupId>com.intelemage</groupId>
@@ -8,6 +8,8 @@ Maven usage:
             <version>1.0.0</version>
         </dependency>
 ```
+
+## Getting Started
 
 Import the API class:
 ```java
@@ -21,7 +23,11 @@ Setup the API parameters (You only need to do this once per application)
 
 Note: Please contact your Intelemage Project Manager for the proper settings above
 
-Get started! Here's how you can get a list of trials your API client has access to:
+Here's how you can get a list of trials your API client has access to:
 ```java  
    List<Trial> trialList = VistaAPI.getTrials();
 ```
+
+
+## Available Calls
+
