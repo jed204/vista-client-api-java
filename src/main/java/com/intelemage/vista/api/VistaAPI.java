@@ -20,7 +20,7 @@ public class VistaAPI {
 	 * @param applicationName Name of your application (short, no spaces is fine)
 	 * @param applicationVersion Version of your application
 	 */
-	public void setupAPI(String apiServer, String clientId, String apiKey, String applicationName, String applicationVersion) {
+	public static void setupAPI(String apiServer, String clientId, String apiKey, String applicationName, String applicationVersion) {
 		UStack.API_BASE = apiServer;
 		UStack.API_VERSION = "v1/";
 		UStack.clientId = clientId;
