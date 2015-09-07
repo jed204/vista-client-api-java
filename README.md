@@ -2,11 +2,11 @@
 
 Add the library using Maven:
 ```xml
-          <dependency>
-            <groupId>com.intelemage</groupId>
-            <artifactId>vista-client-api-java</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+<dependency>
+          <groupId>com.intelemage</groupId>
+          <artifactId>vista-client-api-java</artifactId>
+          <version>1.0.0</version>
+</dependency>
 ```
 
 ## Getting Started
