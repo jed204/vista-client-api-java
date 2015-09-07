@@ -21,7 +21,7 @@ Setup the API parameters (You only need to do this once per application)
   VistaAPI.setupAPI("API_URL", "YOUR_CLIENT_ID", "YOUR_API_KEY", "YOUR_APP_NAME", "YOUR_APP_VERSION");
 ```
 
-Note: Please contact your Intelemage Project Manager for the proper settings above
+<i>Note: Please contact your Intelemage Project Manager for the proper settings above</i>
 
 Here's how you can get a list of trials your API client has access to:
 ```java  
