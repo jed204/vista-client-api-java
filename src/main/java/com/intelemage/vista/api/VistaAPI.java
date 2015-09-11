@@ -29,8 +29,11 @@ public class VistaAPI {
 	 * @param applicationVersion Version of your application
 	 */
 	public static void setupAPI(String apiServer, String clientId, String apiKey, String applicationName, String applicationVersion) {
+		
+		if (apiServer.endsWith("/"))
+			apiServer = apiServer.substring(0, apiServer.length() - 1);
+		
 		UStack.API_BASE = apiServer;
-		UStack.API_VERSION = "v1/";
 		UStack.clientId = clientId;
 		UStack.apiKey = apiKey;
 		UStack.CLIENT_VERSION = applicationVersion;
@@ -46,7 +49,7 @@ public class VistaAPI {
 	 */
 	public static List<Trial> getTrials() throws ServerSideException, ClientSideException
 	{
-		return UStack.get("/intelegrid/vista/trials", 
+		return UStack.get("/v1/intelegrid/vista/trials", 
 				TrialCollection.class,
 				new ParameterSet()).getTrials();
 	}
@@ -65,7 +68,7 @@ public class VistaAPI {
 	 */
 	public static Subject addUpdateSubject(Long trialId, String siteName, String subjectName, String actor, String changeReason) throws ServerSideException, ClientSideException
 	{
-		return UStack.post("/intelegrid/vista/trial/subject/update", 
+		return UStack.post("/v1/intelegrid/vista/trial/subject/update", 
 				Subject.class,
 				new ParameterSet(Params.trial_id, trialId).add(Params.site_name, siteName).add(Params.subject_name, subjectName).add(Params.actor, actor).add(Params.change_reason, changeReason));
 	}
@@ -81,7 +84,7 @@ public class VistaAPI {
 	 */
 	public static List<Visit> getVisitsBySubject(Long trialId, Long subjectId) throws ServerSideException, ClientSideException
 	{
-		return UStack.get("/intelegrid/vista/trial/subject/visits", 
+		return UStack.get("/v1/intelegrid/vista/trial/subject/visits", 
 				VisitCollection.class,
 				new ParameterSet(Params.trial_id, trialId).add(Params.subject_id, subjectId)).getVisits();
 	}
@@ -99,7 +102,7 @@ public class VistaAPI {
 	 */
 	public static Visit getVisitById(Long trialId, Long visitId, boolean includeTrackedItems, boolean includeStudies) throws ServerSideException, ClientSideException
 	{
-		return UStack.get("/intelegrid/vista/trial/subject/visit", 
+		return UStack.get("/v1/intelegrid/vista/trial/subject/visit", 
 				Visit.class,
 				new ParameterSet(Params.trial_id, trialId).add(Params.visit_id, visitId).add(Params.include_tracked_items, includeTrackedItems).add(Params.include_studies, includeStudies));
 	}
@@ -123,7 +126,7 @@ public class VistaAPI {
 		if (trackedData != null)
 			trackedDataStr = new Gson().toJson(trackedData);
 		
-		return UStack.post("/intelegrid/vista/trial/visit/update", 
+		return UStack.post("/v1/intelegrid/vista/trial/visit/update", 
 				Visit.class,
 				new ParameterSet(Params.trial_id, trialId).add(Params.site_name, siteName).add(Params.subject_name, subjectName).add(Params.visit_name, visitName).add(Params.visit_date, visitDate).add(Params.tracked_data, trackedDataStr).add(Params.actor, actor).add(Params.change_reason, changeReason));
 	}
@@ -136,15 +139,16 @@ public class VistaAPI {
 	 * @param subjectName
 	 * @param visitName
 	 * @param requirementName
+	 * @param formName
 	 * @param formXml
 	 * @param actor
 	 * @return
 	 * @throws ServerSideException
 	 * @throws ClientSideException
 	 */
-	public static APIResult setRequirementFormData(Long trialId, String siteName, String subjectName, String visitName, String requirementName, String formXml, String actor) throws ServerSideException, ClientSideException 
+	public static APIResult setRequirementFormData(Long trialId, String siteName, String subjectName, String visitName, String requirementName, String formName, String formXml, String actor) throws ServerSideException, ClientSideException 
 	{
-		return setRequirementFormData(trialId, siteName, subjectName, visitName, requirementName, formXml, null, null, actor);
+		return setRequirementFormData(trialId, siteName, subjectName, visitName, requirementName, formName, formXml, null, null, actor);
 	}
 	
 	/**
@@ -155,16 +159,17 @@ public class VistaAPI {
 	 * @param subjectName
 	 * @param visitName
 	 * @param requirementName
+	 * @param formName
 	 * @param formXml
 	 * @param mode
 	 * @param status
 	 * @param actor
 	 */
-	public static APIResult setRequirementFormData(Long trialId, String siteName, String subjectName, String visitName, String requirementName, String formXml, String mode, String status, String actor) throws ServerSideException, ClientSideException 
+	public static APIResult setRequirementFormData(Long trialId, String siteName, String subjectName, String visitName, String requirementName, String formName, String formXml, String mode, String status, String actor) throws ServerSideException, ClientSideException 
 	{
-		return UStack.post("/intelegrid/vista/trial/subject/visit/form/set", 
+		return UStack.post("/v1/intelegrid/vista/trial/subject/visit/form/set", 
 				APIResultHolder.class,
-				new ParameterSet(Params.trial_id, trialId).add(Params.site_name, siteName).add(Params.subject_name, subjectName).add(Params.visit_name, visitName).add(Params.requirement_name, requirementName).add(Params.form_xml, formXml).add(Params.mode, mode).add(Params.status, status)).getResult();
+				new ParameterSet(Params.trial_id, trialId).add(Params.site_name, siteName).add(Params.subject_name, subjectName).add(Params.visit_name, visitName).add(Params.requirement_name, requirementName).add(Params.form_name, formName).add(Params.form_xml, formXml).add(Params.mode, mode).add(Params.status, status).add(Params.actor, actor)).getResult();
 	}
 	
 	/**
@@ -179,7 +184,7 @@ public class VistaAPI {
 	 */
 	public static APIResult startVisitWorkflow(Long trialId, Long visitId, String workflowName) throws ServerSideException, ClientSideException
 	{
-		return UStack.post("/intelegrid/vista/trial/visit/start_workflow", 
+		return UStack.post("/v1/intelegrid/vista/trial/visit/start_workflow", 
 				APIResultHolder.class,
 				new ParameterSet(Params.trial_id, trialId).add(Params.visit_id, visitId).add(Params.name, workflowName)).getResult();
 	}

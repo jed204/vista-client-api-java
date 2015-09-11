@@ -4,7 +4,7 @@
     <groupId>com.intelemage</groupId>
     <artifactId>vista-client-api-java</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>vista-client-java</name>
 	<licenses>
 		<license>
@@ -124,7 +124,7 @@
 	</repositories>
 	<distributionManagement>
 		<repository>
-			<id>sonatype-nexus-staging</id>
+			<id>itm-sonatype-nexus-staging</id>
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>

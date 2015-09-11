@@ -4,11 +4,19 @@ import java.util.List;
 
 public class VerticalDataItem {
 
+	private String key;
 	private String name;
 	private String action;
 	private String type;
 	private String value;
 	private List<String> arrayValue;
+	
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
 	public String getName() {
 		return name;
 	}
@@ -21,6 +29,9 @@ public class VerticalDataItem {
 	public String getAction() {
 		return action;
 	}
+	public void setAction(TrackedItemActions a) {
+		setAction(a.name());
+	}
 	public void setAction(String action) {
 		this.action = action;
 	}
@@ -29,6 +40,9 @@ public class VerticalDataItem {
 	}
 	public String getType() {
 		return type;
+	}
+	public void setType(TrackedItemTypes t) {
+		setType(t.name());
 	}
 	public void setType(String type) {
 		this.type = type;
